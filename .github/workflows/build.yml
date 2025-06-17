@@ -27,8 +27,15 @@ jobs:
       - name: Build plugin
         run: ./gradlew build
 
-      - name: Upload plugin JAR
+      - name: Rename output JAR with commit ID
+        run: |
+          COMMIT_ID=$(echo "${{ github.sha }}" | cut -c1-7)
+          JAR_NAME="StripConfirm-${COMMIT_ID}.jar"
+          mv build/libs/*.jar build/libs/${JAR_NAME}
+          echo "JAR_NAME=${JAR_NAME}" >> $GITHUB_ENV
+
+      - name: Upload plugin artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Stripconfirm-${{ github.sha }}
-          path: build/libs/*.jar
+          name: ${{ env.JAR_NAME }}
+          path: build/libs/${{ env.JAR_NAME }}
