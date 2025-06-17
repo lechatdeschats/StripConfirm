@@ -1,0 +1,6 @@
+name: stripconfirm
+version: '1.0-SNAPSHOT'
+main: fr.lechatdeschats.stripconfirm.StripConfirm
+api-version: '1.21'
+load: STARTUP
+authors: [ lechatdeschats ]
